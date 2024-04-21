@@ -47,17 +47,33 @@ class TeamMgr {
 private:
 	vector<string>schedule;
 	map<string, Footballer>footballers;
+	vector<string>weeks;
 public:
 	void loadScheduleFromDatabase() {
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
 		schedule = readFileLines(path);
 	}
 
-	showMatchesPerWeek() {}
+	void showMatchesPerWeek(int week) {
+		weeks = splitString(schedule[week]);
+		for (int i{ 0 }; i < weeks.size()/2; i++) {
+			cout << weeks[i] << "v.s" << weeks[i+1] << "\t";
+		}
 
-	result() {}
+	}
 
-	goals() {}
+	 pair <int,int> showResult() {
+		 int goals1 = rand() % 6;
+		 int goals2 = rand() % 6;
+		 cout << goals1 << ":" << goals2 << "\t";
+		 pair<int,int>result = make_pair(goals1, goals2);
+		 return result;
+
+	 }
+
+	vector <string>showFootballers(int goals) {
+	
+	}
 
 	points() {}
 
