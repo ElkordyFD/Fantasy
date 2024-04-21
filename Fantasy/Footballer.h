@@ -16,6 +16,7 @@ private:
 	string teamName;
 	int points;
 public:
+
 	Footballer (string line) {
 		vector<string>information = splitString(line);
 		name = information[0];
@@ -28,7 +29,32 @@ public:
 	const string& getTeamName() {
 		return teamName;
 	}
+
 	const string& getName() {
 		return name;
+	}
+
+	int& getPoints() {
+		return points;
+	}
+
+	int& getPrice() {
+		return price;
+	}
+
+	void setPrice(const int& price) {
+		this->price = price;
+	}
+
+	void setPoint(const int& point) {
+		this->points = point;
+	}
+
+	void setName(const string& name) {
+		this->name = name;
+	}
+
+	void setTeamName(const string& teamName) {
+		this->teamName = teamName;
 	}
 };

@@ -73,7 +73,7 @@ public:
 
 	void showMatchesPerWeek(int week) {
 		weeks = splitString(schedule[week]);
-		for (int i{ 0 }; i < weeks.size()/2; i++) {
+		for (int i{ 0 }; i < weeks.size() / 2; i++) {
 			cout << weeks[i] << "V.S" << weeks[i + 1] << "\t";
 		}
 	}
@@ -88,23 +88,34 @@ public:
 	 }
 
 	vector <Footballer> showFootballers(int goals,string teamName) {
+		vector <Footballer>footballer = footballers[teamName];
+
 		vector <Footballer>footballername;
-		vector <Footballer>footballer=footballers[teamName];
 		while (goals--) {
 			int position = rand() % 11;
 			footballername.push_back(footballer[position]);
 			cout << footballer[position].getName();
-
 		}
 	}
 
-	 points() {}
+	 void modifyFootballerPoints (vector<Footballer> footballers) {
+
+		 for (Footballer &footballer : footballers) {
+			 footballer.getPoints() += 5;
+		 }
+	 }
+
+	 void modifyFootballerPrice(vector<Footballer> footballers) {
+
+		 for (Footballer& footballer : footballers) {
+			 footballer.getPrice() += 500;
+		 }
+	 }
+
+	 
 
 
 	void Match() {
-		// 1- week
-		// 2- generate result
-		// 3- generate footballers
-		// 4- points
+
 	}
 };
