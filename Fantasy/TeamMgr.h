@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include "Team.h"
 using namespace std;
 #include <map>
@@ -45,39 +46,22 @@ vector<string> splitString(const string& str, const string& delimiter = ",") {
 class TeamMgr {
 private:
 	vector<string>schedule;
+	map<string, Footballer>footballers;
 public:
-	void loadDatabase() {
-		schedule = readFileLines("Path");
+	void loadScheduleFromDatabase() {
+		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
+		schedule = readFileLines(path);
 	}
 
-	void showMatchesPerWeek(int week) {
-		vector<string> weekMatches = splitString(schedule[week]);
-		for (string match : weekMatches)
-			cout << match << '\t';
-	}
+	showMatchesPerWeek() {}
 
-	pair<int, int> result(Team team1, Team team2) {
-		pair<int, int> goals;
-		goals.first = rand() % 6;
-		goals.second = rand() % 6;
-		return goals;
-	}
+	result() {}
 
-	vector<string> goals(pair<int, int> goal, vector<string>footballer1, vector<string>footballer2) {
-		vector<string> footballers;
-		int randomVariable;
-		while (goal.first--) {
-			randomVariable = rand() % 11;
-			footballers.push_back(footballer1[randomVariable]);
-		}
-		while (goal.second--) {
-			randomVariable = rand() % 11;
-			footballers.push_back(footballer2[randomVariable]);
-		}
-	}
-	void points(vector<string>footballers) {
+	goals() {}
 
-	}
+	points() {}
+
+
 	void Match() {
 		// 1- week
 		// 2- generate result
