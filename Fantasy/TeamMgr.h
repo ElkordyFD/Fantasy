@@ -3,7 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Team.h"
+#include <iomanip>
+#include "Footballer.h"
 using namespace std;
 #include <map>
 
@@ -27,20 +28,6 @@ vector<string> readFileLines(const string& path) {
 
 	file_handler.close();
 	return lines;
-}
-vector<string> splitString(const string& str, const string& delimiter = ",") {
-	string s = str;
-	vector<string> strs;
-
-	int pos = 0;
-	string substr;
-	while ((pos = (int)s.find(delimiter)) != -1) {
-		substr = s.substr(0, pos);
-		strs.push_back(substr);
-		s.erase(0, pos + delimiter.length());
-	}
-	strs.push_back(s);
-	return strs;
 }
 
 
@@ -77,27 +64,27 @@ public:
 	void showMatchesPerWeek(int week) {
 		round = splitString(schedule[week]);
 		for (int i{ 0 }; i < round.size() / 2; i++) {
-			cout << round[i] << "V.S" << round[i + 1] << "\t";
+			cout << round[i] << "  V.S  " << round[i + 1] << "\n";
 		}
+		cout << '\n';
 	}
 
-	 pair <int,int> showResult() {
-		 int goals1 = rand() % 6;
-		 int goals2 = rand() % 6;
-		 cout << goals1 << ":" << goals2 << "\t";
-		 pair<int,int>result = make_pair(goals1, goals2);
-		 return result;
+	pair <int, int> showResult() {
+		int goals1 = rand() % 6;
+		int goals2 = rand() % 6;
+		cout << setw(13) << left << goals1 << setw(10) << left << ":" << goals2 << "\n\n";
+		pair<int, int>result = make_pair(goals1, goals2);
+		return result;
 
-	 }
+	}
 
-	vector <Footballer> showFootballers(int goals,string teamName) {
+	vector <Footballer> showFootballers(int goals, string teamName) {
 		vector <Footballer>footballer = footballers[teamName];
 
 		vector <Footballer>footballername;
 		while (goals--) {
 			int position = rand() % 11;
 			footballername.push_back(footballer[position]);
-			cout << footballer[position].getName();
 		}
 		return footballername;
 	}
@@ -119,17 +106,34 @@ public:
 	 
 
 
-	void Match(int week) {
-		showMatchesPerWeek(week);
-		for (int i{ 0 }, index{0}; i < (round.size() / 2); i++, index += 2) {
-			pair <int, int> result = showResult();
-			vector<Footballer> footballers;
-			footballers = showFootballers(result.first, round[index]);
-			/*modifyFootballerPoints(footballers);
-			modifyFootballerPrice(footballers);*/
-			footballers = showFootballers(result.second, round[index + 1]);
-			/*modifyFootballerPoints(footballers);
-			modifyFootballerPrice(footballers);*/
-		}
-	}
+	 void Match(int week) {
+		 round = splitString(schedule[week]);
+		 for (int i{ 0 }, index{ 0 }; i < (round.size() / 2); i++, index += 2) {
+			 cout << setw(10) << left << round[index] << setw(10) << left << "  V.S  " << round[index + 1] << "\n";
+			 pair <int, int> result = showResult();
+			 vector<Footballer> team1;
+			 vector<Footballer> team2;
+			 team1 = showFootballers(result.first, round[index]);
+			 /*modifyFootballerPoints(footballers);
+			 modifyFootballerPrice(footballers);*/
+			 team2 = showFootballers(result.second, round[index + 1]);
+			 /*modifyFootballerPoints(footballers);
+			 modifyFootballerPrice(footballers);*/
+			 int maxSize = max(team1.size(), team2.size());
+
+			 for (int i{ 0 }; i < maxSize; i++) {
+				 if (i < team1.size())
+					 cout << setw(20) << left << team1[i].getName();
+				 else
+					 cout << setw(20) << left << " ";
+				 if (i < team2.size())
+					 cout << team2[i].getName();
+				 else
+					 cout << " ";
+				 cout << "\n";
+
+			 }
+			 cout << "\n************************\n\n";
+		 }
+	 }
 };
