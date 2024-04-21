@@ -45,21 +45,37 @@ vector<string> splitString(const string& str, const string& delimiter = ",") {
 
 class TeamMgr {
 private:
-	vector<string>schedule;
-	map<string, Footballer>footballers;
-	vector<string>weeks;
+	vector <string> schedule;
+	map <string, Footballer> footballers;
+	vector <string> weeks;
 public:
 	void loadScheduleFromDatabase() {
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
 		schedule = readFileLines(path);
 	}
 
+	void loadFootballersFromDatabase() {
+		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
+		vector <string> lines;
+		lines = readFileLines(path);
+
+		for (const string& line : lines) {
+			Footballer footballer(line);
+			footballers[footballer.getTeamName()] = footballer;
+		
+		}
+	}
+
+	void loadDatabase() {
+		loadScheduleFromDatabase();
+		loadFootballersFromDatabase();
+	}
+
 	void showMatchesPerWeek(int week) {
 		weeks = splitString(schedule[week]);
 		for (int i{ 0 }; i < weeks.size()/2; i++) {
-			cout << weeks[i] << "v.s" << weeks[i+1] << "\t";
+			cout << weeks[i] << "V.S" << weeks[i + 1] << "\t";
 		}
-
 	}
 
 	 pair <int,int> showResult() {
@@ -71,9 +87,7 @@ public:
 
 	 }
 
-	vector <string>showFootballers(int goals) {
-	
-	}
+	vector <string> showFootballers(int goals) {}
 
 	points() {}
 
