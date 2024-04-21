@@ -46,7 +46,7 @@ vector<string> splitString(const string& str, const string& delimiter = ",") {
 class TeamMgr {
 private:
 	vector <string> schedule;
-	map <string, Footballer> footballers;
+	map <string,vector <Footballer>> footballers;
 	vector <string> weeks;
 public:
 	void loadScheduleFromDatabase() {
@@ -61,7 +61,7 @@ public:
 
 		for (const string& line : lines) {
 			Footballer footballer(line);
-			footballers[footballer.getTeamName()] = footballer;
+			footballers[footballer.getTeamName()].push_back(footballer);
 		
 		}
 	}
@@ -87,9 +87,18 @@ public:
 
 	 }
 
-	vector <string> showFootballers(int goals) {}
+	vector <Footballer> showFootballers(int goals,string teamName) {
+		vector <Footballer>footballername;
+		vector <Footballer>footballer=footballers[teamName];
+		while (goals--) {
+			int position = rand() % 11;
+			footballername.push_back(footballer[position]);
+			cout << footballer[position].getName();
 
-	points() {}
+		}
+	}
+
+	 points() {}
 
 
 	void Match() {

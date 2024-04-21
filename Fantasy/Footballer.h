@@ -28,4 +28,7 @@ public:
 	const string& getTeamName() {
 		return teamName;
 	}
+	const string& getName() {
+		return name;
+	}
 };
