@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include "Team.h"
 using namespace std;
 #include <map>
@@ -47,8 +48,8 @@ class TeamMgr {
 private:
 	vector <string> schedule;
 	map <string,vector <Footballer>> footballers;
-	vector <string> weeks;
-public:
+	vector <string> round;
+
 	void loadScheduleFromDatabase() {
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
 		schedule = readFileLines(path);
@@ -62,9 +63,11 @@ public:
 		for (const string& line : lines) {
 			Footballer footballer(line);
 			footballers[footballer.getTeamName()].push_back(footballer);
-		
+
 		}
 	}
+
+public:
 
 	void loadDatabase() {
 		loadScheduleFromDatabase();
@@ -72,9 +75,9 @@ public:
 	}
 
 	void showMatchesPerWeek(int week) {
-		weeks = splitString(schedule[week]);
-		for (int i{ 0 }; i < weeks.size() / 2; i++) {
-			cout << weeks[i] << "V.S" << weeks[i + 1] << "\t";
+		round = splitString(schedule[week]);
+		for (int i{ 0 }; i < round.size() / 2; i++) {
+			cout << round[i] << "V.S" << round[i + 1] << "\t";
 		}
 	}
 
@@ -96,6 +99,7 @@ public:
 			footballername.push_back(footballer[position]);
 			cout << footballer[position].getName();
 		}
+		return footballername;
 	}
 
 	 void modifyFootballerPoints (vector<Footballer> footballers) {
@@ -115,7 +119,17 @@ public:
 	 
 
 
-	void Match() {
-
+	void Match(int week) {
+		showMatchesPerWeek(week);
+		for (int i{ 0 }, index{0}; i < (round.size() / 2); i++, index += 2) {
+			pair <int, int> result = showResult();
+			vector<Footballer> footballers;
+			footballers = showFootballers(result.first, round[index]);
+			/*modifyFootballerPoints(footballers);
+			modifyFootballerPrice(footballers);*/
+			footballers = showFootballers(result.second, round[index + 1]);
+			/*modifyFootballerPoints(footballers);
+			modifyFootballerPrice(footballers);*/
+		}
 	}
 };
