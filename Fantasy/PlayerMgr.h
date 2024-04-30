@@ -1,12 +1,20 @@
 #include <iostream>
 #include <map>
-using namespace std;
 #include "Player.h"
+#include"InputHandler.h"
+using namespace std;
 
 
 class PlayerMgr {
-	map <string, Player> players;
-	Player currenPlayer;
+	static map <string, Player> players;
+	Player currentPlayer;
 	int lastId;
+	
+	
 
+	static void menu();
+
+	static void login();
+
+	static void signup();
 };
