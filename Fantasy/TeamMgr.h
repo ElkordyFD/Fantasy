@@ -44,14 +44,32 @@ private:
 
 	void loadFootballersFromDatabase() {
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
-		vector <string> lines;
-		lines = readFileLines(path);
+		vector <string> lines = readFileLines(path);
 
 		for (const string& line : lines) {
 			Footballer footballer(line);
 			footballers[footballer.getTeamName()].push_back(footballer);
 
 		}
+	}
+
+	void modifyFootballerPoints(vector<Footballer>& teamFootballers, vector<Footballer>& footballersWhoScored) {
+		const int points = 5;
+		for (int i{ 0 }; i < footballersWhoScored.size(); i++) {
+			for (int j{ 0 }; j < teamFootballers.size(); j++) {
+				if (footballersWhoScored[i].getName() == teamFootballers[j].getName()) {
+					int newPoints = teamFootballers[j].getPoints() + points;
+					teamFootballers[j].setPoint(newPoints);
+				}
+			}
+		} 
+
+	}
+
+	void setCleanSheetPoints(Footballer &goalKepper) {
+		const int points = 10;
+		int newPoints = goalKepper.getPoints() + points;
+		goalKepper.setPoint(newPoints);
 	}
 
 public:
@@ -78,28 +96,69 @@ public:
 
 	}
 
-	vector <Footballer> showFootballers(int goals, string teamName) {
+	vector <Footballer> getFootballersWhoScored(int goals, string teamName) {
 		vector <Footballer>footballer = footballers[teamName];
 
 		vector <Footballer>footballername;
 		while (goals--) {
-			int position = rand() % 11;
-			footballername.push_back(footballer[position]);
+			int idx = rand() % 11;
+			footballername.push_back(footballer[idx]);
 		}
 		return footballername;
 	}
 
-	 void modifyFootballerPoints (vector<Footballer> footballers) {
 
-		 for (Footballer &footballer : footballers) {
-			 footballer.getPoints() += 5;
+
+
+	 void modifyPoints (vector<Footballer>& teamFootballers,vector<Footballer>& footballersWhoScored, int oppositeGoal) {
+		 if (footballersWhoScored.size())
+			modifyFootballerPoints(teamFootballers, footballersWhoScored);
+
+		 if(!oppositeGoal)
+			setCleanSheetPoints(teamFootballers[0]);
+	 }
+
+
+
+	 void modifyFootballerPrice(vector<Footballer>& footballers) {
+		 const int points = 5; const int price = 500;
+
+		 for (Footballer& footballer : footballers) {
+			 int goal = footballer.getPoints() / points;
+			 int newPrice = (goal * price) + footballer.getPrice();
+			 footballer.setPrice(newPrice);
 		 }
 	 }
 
-	 void modifyFootballerPrice(vector<Footballer> footballers) {
+	 void resetPoints() {
+		 for (int i{ 0 }; i < footballers.size(); i++)
+			 reset(footballers[round[i]]);
+	 }
 
+	 void reset(vector<Footballer>& footballers) {
+		 const int zero = 0;
 		 for (Footballer& footballer : footballers) {
-			 footballer.getPrice() += 500;
+			 footballer.setPoint(zero);
+		 }
+	 }
+
+
+
+	 void showFootballersWhoScored(vector<Footballer> footballers1, vector<Footballer> footballers2) {
+		
+		 int maxSize = max(footballers1.size(), footballers2.size());
+
+		 for (int i{ 0 }; i < maxSize; i++) {
+			 if (i < footballers1.size())
+				 cout << setw(20) << left << footballers1[i].getName();
+			 else
+				 cout << setw(20) << left << " ";
+			 if (i < footballers2.size())
+				 cout << footballers2[i].getName();
+			 else
+				 cout << " ";
+			 cout << "\n";
+
 		 }
 	 }
 
@@ -107,33 +166,30 @@ public:
 
 
 	 void Match(int week) {
+		 
 		 round = splitString(schedule[week]);
+
+		 resetPoints();
+
 		 for (int i{ 0 }, index{ 0 }; i < (round.size() / 2); i++, index += 2) {
 			 cout << setw(10) << left << round[index] << setw(10) << left << "  V.S  " << round[index + 1] << "\n";
 			 pair <int, int> result = showResult();
-			 vector<Footballer> team1;
-			 vector<Footballer> team2;
-			 team1 = showFootballers(result.first, round[index]);
-			 /*modifyFootballerPoints(footballers);
-			 modifyFootballerPrice(footballers);*/
-			 team2 = showFootballers(result.second, round[index + 1]);
-			 /*modifyFootballerPoints(footballers);
-			 modifyFootballerPrice(footballers);*/
-			 int maxSize = max(team1.size(), team2.size());
+			 vector<Footballer> footballesWhoScoredFromTeam1 = getFootballersWhoScored(result.first, round[index]);
+			 modifyPoints(footballers[round[index]], footballesWhoScoredFromTeam1, result.second);
+			 vector<Footballer> footballesWhoScoredFromTeam2 = getFootballersWhoScored(result.second, round[index + 1]);
+			 modifyPoints(footballers[round[index + 1]],footballesWhoScoredFromTeam2, result.first);
 
-			 for (int i{ 0 }; i < maxSize; i++) {
-				 if (i < team1.size())
-					 cout << setw(20) << left << team1[i].getName();
-				 else
-					 cout << setw(20) << left << " ";
-				 if (i < team2.size())
-					 cout << team2[i].getName();
-				 else
-					 cout << " ";
-				 cout << "\n";
+			 showFootballersWhoScored(footballesWhoScoredFromTeam1, footballesWhoScoredFromTeam2);
 
-			 }
+			 modifyFootballerPrice(footballers[round[index]]); modifyFootballerPrice(footballers[round[index + 1]]);
 			 cout << "\n************************\n\n";
+
 		 }
+	 }
+
+	 void showFoot(string teamName) {
+		 for (Footballer f : footballers[teamName])
+			 cout << f.getName() << " " << f.getPoints() << " " << f.getPrice() << "\n";
+		 cout << "\n\n";
 	 }
 };
