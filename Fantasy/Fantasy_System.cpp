@@ -16,7 +16,9 @@ int main()
 {
     TeamMgr teamMgr;
     teamMgr.loadDatabase();
-    teamMgr.Match(0);
-    teamMgr.
+    for (int i{ 0 }; i < 5; i++) {
+        teamMgr.Match(i);
+        teamMgr.showFoot("ManUnited");
+    }
 
 }
