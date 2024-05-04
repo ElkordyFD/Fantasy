@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Fantasy_System.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>

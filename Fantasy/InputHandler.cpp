@@ -2,8 +2,6 @@
 #include"InputHandler.h"
 
 
-class InputHandler {
-
 static int inputInteger(int from, int to) {
 	int x;
 	assert(from <= to);
@@ -14,4 +12,3 @@ static int inputInteger(int from, int to) {
 	}
 	return x;
 }
-};

@@ -11,9 +11,9 @@ private:
 	Team team;
 
 public:
-
-	Player(int id, string username, string password, double budget, Team team)
-		: id(id), username(username), password(password), budget(budget), team(team)
+	int idCounter = 0;
+	Player(string username, string password)
+		: id(++idCounter), username(username), password(password), budget(80000)
 	{
 	}
 };

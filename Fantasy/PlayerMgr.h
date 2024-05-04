@@ -6,11 +6,13 @@ using namespace std;
 
 
 class PlayerMgr {
+
+public:
 	static map <string, Player> players;
-	Player currentPlayer;
+	static Player currentPlayer;
 	int lastId;
 	
-	
+	static void seed();
 
 	static void menu();
 
