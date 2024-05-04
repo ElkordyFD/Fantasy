@@ -37,6 +37,7 @@ private:
 	map <string,vector <Footballer>> footballers;
 	vector <string> round;
 
+	
 	void loadScheduleFromDatabase() {
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
 		schedule = readFileLines(path);

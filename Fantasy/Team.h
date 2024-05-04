@@ -8,4 +8,8 @@ private:
 	int id;
 	string name;
 	vector<Footballer> Footballers;
+public:
+	vector<Footballer> getFootballers() {
+		return Footballers;
+	}
 };
