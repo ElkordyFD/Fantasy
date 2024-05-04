@@ -16,4 +16,10 @@ public:
 		: id(++idCounter), username(username), password(password), budget(80000)
 	{
 	}
+
+	string getPassword() {
+		return password;
+	}
+
+	
 };
