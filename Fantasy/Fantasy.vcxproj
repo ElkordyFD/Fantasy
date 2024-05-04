@@ -128,11 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Fantasy_System.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="PlayerMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Fantasy.h" />
+    <ClInclude Include="Fantasy_System.h" />
     <ClInclude Include="Footballer.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Player.h" />

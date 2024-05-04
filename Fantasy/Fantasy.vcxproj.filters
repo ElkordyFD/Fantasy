@@ -18,12 +18,6 @@
     <ClCompile Include="Fantasy_System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerMgr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Team.h">
@@ -38,13 +32,13 @@
     <ClInclude Include="TeamMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Fantasy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Footballer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fantasy_System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
