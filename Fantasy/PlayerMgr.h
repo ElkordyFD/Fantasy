@@ -286,7 +286,7 @@ public:
 				}
 
 			}
-			choice = ShowReadMenu({ "Exit","SellAgain" });
+			choice = ShowReadMenu({ "Exit","Sell Again" });
 
 		} while (choice != 1);
 	}
