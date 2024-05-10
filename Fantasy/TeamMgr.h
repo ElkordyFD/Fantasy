@@ -1,3 +1,9 @@
+
+#ifndef _TEAM_MGR_
+#define _TEAM_MGR_
+
+
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -9,40 +15,20 @@ using namespace std;
 #include <map>
 
 
-vector<string> readFileLines(const string& path) {
-	vector<string> lines;
-
-	fstream file_handler(path.c_str());
-
-	if (file_handler.fail()) {
-		cout << "\n\nERROR: Can't open the file\n\n";
-		return lines;
-	}
-	string line;
-
-	while (getline(file_handler, line)) {
-		if (line.size() == 0)    // if line is empty
-			continue;
-		lines.push_back(line);
-	}
-
-	file_handler.close();
-	return lines;
-}
-
-
 class TeamMgr {
 private:
 	vector <string> schedule;
-	map <string,vector <Footballer>> footballers;
+	map <string, vector <Footballer>> footballers;
 	vector <string> round;
 
 	void loadScheduleFromDatabase() {
+		schedule.clear();
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
 		schedule = readFileLines(path);
 	}
 
 	void loadFootballersFromDatabase() {
+		footballers.clear();
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
 		vector <string> lines = readFileLines(path);
 
@@ -140,7 +126,7 @@ private:
 
 	void showFootballersWhoScored(vector<Footballer> footballers1, vector<Footballer> footballers2) {
 
-		int maxSize = max(footballers1.size(), footballers2.size());
+		int maxSize = max((int)footballers1.size(), (int)footballers2.size());
 
 		for (int i{ 0 }; i < maxSize; i++) {
 			if (i < footballers1.size())
@@ -166,38 +152,50 @@ public:
 	}
 
 
-	 void Match(int week) {
-		 
-		 round = splitString(schedule[week]);
+	void Match(int week) {
 
-		 resetPoints();
+		round = splitString(schedule[week]);
 
-		 for (int i{ 0 }, index{ 0 }; i < (round.size() / 2); i++, index += 2) {
-			 cout << setw(10) << left << round[index] << setw(10) << left << "  V.S  " << round[index + 1] << "\n";
-			 pair <int, int> result = showResult();
+		resetPoints();
 
-			 vector<Footballer> footballesWhoScoredFromTeam1 = getFootballersWhoScored(result.first, round[index]);
-			 vector<Footballer> footballesWhoScoredFromTeam2 = getFootballersWhoScored(result.second, round[index + 1]);
+		for (int i{ 0 }, index{ 0 }; i < (round.size() / 2); i++, index += 2) {
+			cout << setw(10) << left << round[index] << setw(10) << left << "  V.S  " << round[index + 1] << "\n";
+			pair <int, int> result = showResult();
 
-			 modifyPoints(footballesWhoScoredFromTeam1,round[index],footballesWhoScoredFromTeam2,round[index + 1], result);
-			 showFootballersWhoScored(footballesWhoScoredFromTeam1, footballesWhoScoredFromTeam2);
+			vector<Footballer> footballesWhoScoredFromTeam1 = getFootballersWhoScored(result.first, round[index]);
+			vector<Footballer> footballesWhoScoredFromTeam2 = getFootballersWhoScored(result.second, round[index + 1]);
 
-			 cout << "\n************************\n\n";
+			modifyPoints(footballesWhoScoredFromTeam1, round[index], footballesWhoScoredFromTeam2, round[index + 1], result);
+			showFootballersWhoScored(footballesWhoScoredFromTeam1, footballesWhoScoredFromTeam2);
 
-		 }
+			cout << "\n************************\n\n";
 
-		 modifyFootballerPrice();
-	 }
+		}
+		modifyFootballerPrice();
 
-	 // method for test TeamMgr :)
-	 void showFoot(string teamName) {
-		 for (Footballer footballer : footballers[teamName])
-			 cout << footballer.getName() << " " << footballer.getPoints() << " " << footballer.getPrice() << "\n";
-		 cout << "\n\n";
-	 }
+		updateDatabase();
+	}
 
-	 // still in progress
-	 void updateDatabase() {
+	// method for test TeamMgr :)
+	void showFoot(string teamName) {
+		for (Footballer footballer : footballers[teamName])
+			cout << footballer.getName() << " " << footballer.getPoints() << " " << footballer.getPrice() << "\n";
+		cout << "\n\n";
+	}
 
-	 }
+	// still in progress
+	void updateDatabase() {
+
+		vector<string> myFootballers;
+		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
+
+		for (pair<string,vector<Footballer>> it : footballers) {
+			for (Footballer footballer : it.second)
+				myFootballers.push_back(footballer.toString());
+		}
+
+		WriteFileLines(path,myFootballers,false);
+	}
 };
+
+#endif // !_TEAM_MGR_

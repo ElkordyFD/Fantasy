@@ -1,3 +1,7 @@
+#ifndef _FOOTBALLER_
+#define _FOOTBALLER_
+
+
 #include <iostream>
 #include <sstream>
 using namespace std;
@@ -22,7 +26,12 @@ vector<string> splitString(const string& str, const string& delimiter = ",") {
 	strs.push_back(s);
 	return strs;
 }
-
+double toDouble(string text) {
+	double value;
+	istringstream str(text);
+	str >> value;
+	return value;
+}
 
 class Footballer {
 private:
@@ -30,15 +39,29 @@ private:
 	int price;
 	string teamName;
 	int points;
-public:
 
-	Footballer (string line) {
+public:
+	Footballer () {}
+
+	Footballer(const string& line) {
 		vector<string>information = splitString(line);
+
 		name = information[0];
 		price = toInt(information[1]);
 		teamName = information[2];
 		points = toInt(information[3]);
 
+	}
+
+	bool operator ==(const Footballer& other) const {
+		return (name == other.name) && (price == other.price);
+	}
+	
+
+	const string toString() {
+		ostringstream oss;
+		oss << name << "," << price << "," << teamName << "," << points;
+		return oss.str();
 	}
 
 	const string& getTeamName() {
@@ -73,3 +96,5 @@ public:
 		this->teamName = teamName;
 	}
 };
+
+#endif // !_FOOTBALLER_
