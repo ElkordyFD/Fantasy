@@ -48,8 +48,6 @@ public:
 				return true;
 			}
 		}
-		/*auto it = find(team.getFootballers().begin(), team.getFootballers().end(), footballer);
-		return it != team.getFootballers().end();*/
 		return false; 
 	}
 
