@@ -45,6 +45,11 @@ public:
 		footballers.push_back(newFootballer);
 	}
 
+	void deleteFootballer(const Footballer& myFootballer , int index) {
+		footballers.erase(footballers.begin() + index);
+	}
+
+
 	bool isFound(Footballer footballer) {
 		auto it = find(footballers.begin(), footballers.end(), footballer);
 		return it != footballers.end();

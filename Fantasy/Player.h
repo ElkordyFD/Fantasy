@@ -92,9 +92,13 @@ public:
 
 		budget += footballer.getPrice();
 
-		auto it = find(team.getFootballers().begin(), team.getFootballers().end(), footballer);
-		if (it != team.getFootballers().end()) {
-			team.getFootballers().erase(it);
+		
+		for (int i = 0; i < team.getFootballers().size() ; i++)
+		{
+			if (team.getFootballers().at(i) == footballer)
+			{
+				team.deleteFootballer(footballer , i);
+			}
 		}
 
 		return;
