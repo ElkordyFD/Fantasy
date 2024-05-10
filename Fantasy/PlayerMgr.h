@@ -61,7 +61,7 @@ private:
 
 	void loadFootballersFromDatabase() {
 		footballers.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
+		string path = "../data/footballers.txt";
 		vector<string> lines = readFileLines(path);
 
 		for (const string& line : lines) {
@@ -72,7 +72,7 @@ private:
 
 	void loadPlayersFromDatabase() {
 		players.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/Players.txt";
+		string path = "../data/Players.txt";
 		vector<string> lines = readFileLines(path);
 
 		for (const string& line : lines) {
@@ -84,7 +84,7 @@ private:
 
 	void loadPlayersTeamsFromDatabase() {
 		playersTeams.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/PlayerTeams.txt";
+		string path = "../data/PlayerTeams.txt";
 		vector<string> lines = readFileLines(path);
 
 
@@ -192,7 +192,7 @@ public:
 	}
 
 	void updateDatabase(Player& player) {
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/Players.txt";
+		string path = "../data/Players.txt";
 
 		string str = player.toString();
 		vector<string> line(1, str);
