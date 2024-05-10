@@ -210,7 +210,7 @@ public:
 	void displayFootballerInfo(const string& footballerName) {
 
 		Footballer currentFootballer = footballers[footballerName];
-		cout << "\nName: \t" << footballerName << "Price: " << currentFootballer.getPrice() << '\n';
+		cout << "\nName: \t" << footballerName << "\tPrice: " << currentFootballer.getPrice() << '\n';
 	}
 
 	// to check footballer is exist or not
@@ -229,6 +229,11 @@ public:
 
 			cout << "Enter Name Of Footballer You Want to Buy : ";
 			cin >> footballerName;
+
+			while (!isFoundFootballer(footballerName)) {
+				cout << "Incorrect name! Try again.\n";
+				cin >> footballerName;
+			}
 
 			displayFootballerInfo(footballerName);
 
