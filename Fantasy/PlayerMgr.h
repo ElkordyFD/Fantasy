@@ -172,12 +172,13 @@ public:
 	}
 
 	void doSignUp() {
+
 		const double budget = 80000;
 		string username;
 		while (true) {
 			cout << "Enter UserName. (No spaces): ";
 			cin >> username;
-			if (!players.count(username)) {
+			if (players.count(username)) {
 				cout << "Already used. Try again\n";
 				continue;
 			}
@@ -231,14 +232,16 @@ public:
 				
 			displayFootballerInfo(footballerName);
 
+
 			cout << "\nDo You Want To Confirm Your Purchase? (y/n) ";
 			char answer;
 			cin >> answer;
 
 			if (answer == 'y' || answer == 'Y') {
 				Footballer footballer = footballers[footballerName];
-				currentPlayer.addFootballer(footballer);
+				currentPlayer.buyFootballer(footballer);
 			}
+
 
 			choice = ShowReadMenu({ "Exit","BuyAgain" });
 
@@ -267,6 +270,7 @@ public:
 			cin >> answer;
 
 			if (answer == 'y' || answer == 'Y') {
+
 				Footballer footballer = footballers[footballerName];
 				currentPlayer.sellFootballer(footballer);
 			}
@@ -274,6 +278,11 @@ public:
 			choice = ShowReadMenu({ "Exit","SellAgain" });
 
 		} while (choice != 1);
+	}
+
+	void replace() {
+		sellProccess();
+		buyProccess();
 	}
 
 	const Player& getCurrentPlayer(){

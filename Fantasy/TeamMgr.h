@@ -154,6 +154,10 @@ public:
 
 	void Match(int week) {
 
+		cout << "\n\n************************\n\n";
+
+
+
 		round = splitString(schedule[week]);
 
 		resetPoints();
@@ -171,9 +175,12 @@ public:
 			cout << "\n************************\n\n";
 
 		}
+
 		modifyFootballerPrice();
 
 		updateDatabase();
+
+
 	}
 
 	// method for test TeamMgr :)

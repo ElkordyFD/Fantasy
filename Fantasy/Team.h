@@ -19,7 +19,7 @@ private:
 public:
 	Team () {}
 
-	Team(vector<string> information, vector<Footballer> footballers) {
+	Team(const vector<string>& information,const vector<Footballer>& footballers) {
 
 		id = toInt(information[0]);
 		name = information[1];
@@ -58,6 +58,10 @@ public:
 
 	bool isEmpty() {
 		return footballers.size() == 0;
+	}
+
+	const int& getTeamCount() {
+		return footballers.size();
 	}
 };
 

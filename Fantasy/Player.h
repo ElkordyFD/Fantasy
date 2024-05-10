@@ -37,10 +37,6 @@ public:
 		cin >> str;
 		setPassword(str);
 
-		cout << "Enter UserName: ";
-		cin >> str;
-		setUsername(str);
-
 	}
 
 	// make isFound method in team class that's better :)
@@ -71,7 +67,7 @@ public:
 			return;
 		} 
 
-		if (budget - newFootballer.getPrice() < 0) {
+		if (budget < newFootballer.getPrice()) {
 			cout << "\nYour Budget Doesn't Allow! " << endl;
 			return;
 		}
@@ -105,9 +101,6 @@ public:
 		return oss.str();
 	}
 
-	void addFootballer(const Footballer& footballer) {
-		team.addFootballer(footballer);
-	}
 
 	void setId (const int& id){
 		this->id = id;
@@ -143,6 +136,14 @@ public:
 
 	const int& getId() {
 		return id;
+	}
+
+	const int& getBudget() {
+		return budget;
+	}
+
+	const int& getMyTeamCount() {
+		return team.getTeamCount();
 	}
 
 
