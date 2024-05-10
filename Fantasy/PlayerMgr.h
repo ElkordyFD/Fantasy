@@ -135,7 +135,7 @@ public:
 	}
 
 	void accessSystem() {
-		int choice = ShowReadMenu({"Login","SignUp"});
+		int choice = ShowReadMenu({ "Login","SignUp" });
 
 		if (choice == 1)
 			doLogin();
@@ -196,7 +196,7 @@ public:
 
 		string str = player.toString();
 		vector<string> line(1, str);
-		WriteFileLines(path,line);
+		WriteFileLines(path, line);
 	}
 
 	void displayFootballers() {
@@ -229,7 +229,7 @@ public:
 
 			cout << "Enter Name Of Footballer You Want to Buy : ";
 			cin >> footballerName;
-				
+
 			displayFootballerInfo(footballerName);
 
 
@@ -256,25 +256,36 @@ public:
 		int choice;
 
 		do {
-
-			currentPlayer.displayMyTeam();
-
-			cout << "Enter Name Of Footballer You Want to Sell : ";
-			cin >> footballerName;
-
-			displayFootballerInfo(footballerName);
-
-			cout << "\nDo You Want To Confirm The Sale? (y/n) ";
-
-			char answer;
-			cin >> answer;
-
-			if (answer == 'y' || answer == 'Y') {
-
-				Footballer footballer = footballers[footballerName];
-				currentPlayer.sellFootballer(footballer);
+			if (currentPlayer.getMyTeamCount() == 0) {
+				cout << "\nYou have no players to sell!";
 			}
+			else {
 
+				currentPlayer.displayMyTeam();
+
+				cout << "Enter Name Of Footballer You Want to Sell : ";
+
+				cin >> footballerName;
+
+				while (!isFoundFootballer(footballerName)) {
+					cout << "Incorrect name! Try again.\n";
+					cin >> footballerName;
+				}
+
+				displayFootballerInfo(footballerName);
+
+				cout << "\nDo You Want To Confirm The Sale? (y/n) ";
+
+				char answer;
+				cin >> answer;
+
+				if (answer == 'y' || answer == 'Y') {
+
+					Footballer footballer = footballers[footballerName];
+					currentPlayer.sellFootballer(footballer);
+				}
+
+			}
 			choice = ShowReadMenu({ "Exit","SellAgain" });
 
 		} while (choice != 1);
@@ -285,7 +296,7 @@ public:
 		buyProccess();
 	}
 
-	const Player& getCurrentPlayer(){
+	const Player& getCurrentPlayer() {
 		return currentPlayer;
 	}
 
