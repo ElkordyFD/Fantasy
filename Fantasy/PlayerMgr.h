@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <fstream>
+#include <iomanip>
 #include "Player.h"
 
 
@@ -204,7 +205,7 @@ public:
 		// delete auto and write Footballer
 
 		for (auto it : footballers)
-			cout << "\n" << it.second.getName() << "\t" << it.second.getPrice() << "\n";
+			cout << "\n" << setw(16) << it.second.getName() << "\t" << it.second.getPrice() << "\n";
 	}
 
 	void displayFootballerInfo(const string& footballerName) {
@@ -226,6 +227,7 @@ public:
 
 		do {
 			displayFootballers();
+			cout << "\nCurrent Budget: " << currentPlayer.getBudget()<< "\n";
 
 			cout << "Enter Name Of Footballer You Want to Buy : ";
 			cin >> footballerName;
