@@ -19,16 +19,13 @@ private:
 public:
 	Team () {}
 
-	Team(const string& line) {
-		vector<string> information = splitString(line);
+	Team(vector<string> information, vector<Footballer> footballers) {
 
 		id = toInt(information[0]);
 		name = information[1];
 		points = toInt(information[2]);
 
-		for (int i{ 3 }; i < (int)information.size(); i++) {
-			footballers.push_back(information[i]);
-		}
+		this->footballers = footballers;
 
 	}
 

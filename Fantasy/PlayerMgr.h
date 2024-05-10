@@ -87,8 +87,20 @@ private:
 		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/PlayerTeams.txt";
 		vector<string> lines = readFileLines(path);
 
+
+		vector<string>basicInformation;  vector<string>footballersNames;
+
+
 		for (const string& line : lines) {
-			Team team(line);
+			vector<string> info = splitString(line);
+			for (int i{ 0 }; i < (int)info.size(); i++) {
+				if (i < 3)
+					basicInformation.push_back(info[i]);
+				else
+					footballersNames.push_back(info[i]);
+			}
+
+			Team team(basicInformation, toFootballer(footballersNames));
 			playersTeams[team.getId()] = team;
 		}
 	}
@@ -272,6 +284,16 @@ public:
 		int id = currentPlayer.getId();
 		Team team = playersTeams[id];
 		currentPlayer.setTeam(team);
+	}
+
+	vector<Footballer> toFootballer(const vector<string>& footballersNames) {
+		vector<Footballer> myFootballers;
+
+		for (int i{ 0 }; i < (int)footballersNames.size(); i++) {
+			Footballer footballer = footballers[footballersNames[i]];
+			myFootballers.push_back(footballer);
+		}
+		return myFootballers;
 	}
 };
 

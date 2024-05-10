@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "Fantasy.h"
+#include "fantasy.h"
 
 
 using namespace std;
@@ -8,6 +8,9 @@ using namespace std;
 
 int main()
 {
-	Fantasy fantasyGamePlay;
-	fantasyGamePlay.Run();
+	Fantasy fatansySystem;
+	fatansySystem.Run();
+
+	/*Fantasy fantasyGamePlay;
+	fantasyGamePlay.Run();*/
 }
