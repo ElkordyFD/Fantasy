@@ -18,13 +18,13 @@ private:
 	double budget;
 	Team team;
 
+
+public:
+
 	bool isFootballerInMyTeam(Footballer footballer) {
 		auto it = find(team.getFootballers().begin(), team.getFootballers().end(), footballer);
 		return it != team.getFootballers().end();
 	}
-
-public:
-
 	/*Player(int id, string username, string password, Team team)
 		: id(id), username(username), password(password), budget(budget), team(team) {}*/
 
