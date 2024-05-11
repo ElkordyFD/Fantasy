@@ -19,13 +19,13 @@ private:
 public:
 	Team () {}
 
-	Team(const vector<string>& information,const vector<Footballer>& footballers) {
+	Team(const vector<string>& information,const vector<Footballer>& myFootballers) {
 
 		id = toInt(information[0]);
 		name = information[1];
 		points = toInt(information[2]);
 
-		this->footballers = footballers;
+		footballers = myFootballers;
 
 	}
 

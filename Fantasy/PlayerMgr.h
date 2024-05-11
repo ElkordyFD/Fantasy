@@ -91,16 +91,18 @@ private:
 		vector<string>basicInformation;  vector<string>footballersNames;
 
 
-		for (const string& line : lines) {
+		for (string& line : lines) {
 			vector<string> info = splitString(line);
-			for (int i{ 0 }; i < (int)info.size(); i++) {
-				if (i < 3)
-					basicInformation.push_back(info[i]);
-				else
-					footballersNames.push_back(info[i]);
-			}
 
-			Team team(basicInformation, toFootballer(footballersNames));
+			for (int i{ 0 }; i < 3; i++) {
+				basicInformation.push_back(info[i]);
+			}
+			for (int i{ 3 }; i < (int)info.size(); i++) {
+				footballersNames.push_back(info[i]);
+			}
+			vector<Footballer> myFootballers = toFootballer(footballersNames);
+
+			Team team(basicInformation,myFootballers);
 			playersTeams[team.getId()] = team;
 		}
 	}
@@ -289,17 +291,25 @@ public:
 		return currentPlayer;
 	}
 
+
+	// load player team when login
 	void loadPlayerTeam() {
 		int id = currentPlayer.getId();
 		Team team = playersTeams[id];
 		currentPlayer.setTeam(team);
 	}
 
-	vector<Footballer> toFootballer(const vector<string>& footballersNames) {
+
+	Team loadTeam(int id) {
+		return playersTeams[id];
+	}
+	
+
+	vector<Footballer> toFootballer(vector<string> footballersNames) {
 		vector<Footballer> myFootballers;
 
-		for (int i{ 0 }; i < (int)footballersNames.size(); i++) {
-			Footballer footballer = footballers[footballersNames[i]];
+		for (string name : footballersNames) {
+			Footballer footballer = footballers[name];
 			myFootballers.push_back(footballer);
 		}
 		return myFootballers;
