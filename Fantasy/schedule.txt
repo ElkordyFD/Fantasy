@@ -1,0 +1,10 @@
+Liverpool,Chelsea,Arsenal,ManCity,ManUnited,Tottenham
+
+Liverpool,ManCity,Arsenal,ManUnited,Chelsea,Tottenham
+
+Liverpool,ManUnited,Arsenal,Tottenham,Chelsea,ManCity
+
+Liverpool,Tottenham,Arsenal,Chelsea,ManCity,ManUnited
+
+Liverpool,Arsenal,Chelsea,ManUnited,ManCity,Tottenham
+

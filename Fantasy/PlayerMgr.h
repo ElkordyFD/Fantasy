@@ -61,7 +61,7 @@ private:
 
 	void loadFootballersFromDatabase() {
 		footballers.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
+		string path = "../data/footballers.txt";
 		vector<string> lines = readFileLines(path);
 
 		for (const string& line : lines) {
@@ -72,7 +72,7 @@ private:
 
 	void loadPlayersFromDatabase() {
 		players.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/Players.txt";
+		string path = "../data/Players.txt";
 		vector<string> lines = readFileLines(path);
 
 		for (const string& line : lines) {
@@ -84,7 +84,7 @@ private:
 
 	void loadPlayersTeamsFromDatabase() {
 		playersTeams.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/PlayerTeams.txt";
+		string path = "../data/PlayerTeams.txt";
 		vector<string> lines = readFileLines(path);
 
 
@@ -137,7 +137,7 @@ public:
 	}
 
 	void accessSystem() {
-		int choice = ShowReadMenu({"Login","SignUp"});
+		int choice = ShowReadMenu({ "Login","SignUp" });
 
 		if (choice == 1)
 			doLogin();
@@ -194,11 +194,11 @@ public:
 	}
 
 	void updateDatabase(Player& player) {
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/Players.txt";
+		string path = "../data/Players.txt";
 
 		string str = player.toString();
 		vector<string> line(1, str);
-		WriteFileLines(path,line);
+		WriteFileLines(path, line);
 	}
 
 	void displayFootballers() {
@@ -212,7 +212,7 @@ public:
 	void displayFootballerInfo(const string& footballerName) {
 
 		Footballer currentFootballer = footballers[footballerName];
-		cout << "\nName: \t" << footballerName << "Price: " << currentFootballer.getPrice() << '\n';
+		cout << "\nName: \t" << footballerName << "\tPrice: " << currentFootballer.getPrice() << '\n';
 	}
 
 	// to check footballer is exist or not
@@ -231,7 +231,12 @@ public:
 
 			cout << "Enter Name Of Footballer You Want to Buy : ";
 			cin >> footballerName;
-				
+
+			while (!isFoundFootballer(footballerName)) {
+				cout << "Incorrect name! Try again.\n";
+				cin >> footballerName;
+			}
+
 			displayFootballerInfo(footballerName);
 
 
@@ -258,26 +263,37 @@ public:
 		int choice;
 
 		do {
-
-			currentPlayer.displayMyTeam();
-
-			cout << "Enter Name Of Footballer You Want to Sell : ";
-			cin >> footballerName;
-
-			displayFootballerInfo(footballerName);
-
-			cout << "\nDo You Want To Confirm The Sale? (y/n) ";
-
-			char answer;
-			cin >> answer;
-
-			if (answer == 'y' || answer == 'Y') {
-
-				Footballer footballer = footballers[footballerName];
-				currentPlayer.sellFootballer(footballer);
+			if (currentPlayer.getMyTeamCount() == 0) {
+				cout << "\nYou have no players to sell!";
 			}
+			else {
 
-			choice = ShowReadMenu({ "Exit","SellAgain" });
+				currentPlayer.displayMyTeam();
+
+				cout << "Enter Name Of Footballer You Want to Sell : ";
+
+				cin >> footballerName;
+
+				while (!isFoundFootballer(footballerName)) {
+					cout << "Incorrect name! Try again.\n";
+					cin >> footballerName;
+				}
+
+				displayFootballerInfo(footballerName);
+
+				cout << "\nDo You Want To Confirm The Sale? (y/n) ";
+
+				char answer;
+				cin >> answer;
+
+				if (answer == 'y' || answer == 'Y') {
+
+					Footballer footballer = footballers[footballerName];
+					currentPlayer.sellFootballer(footballer);
+				}
+
+			}
+			choice = ShowReadMenu({ "Exit","Sell Again" });
 
 		} while (choice != 1);
 	}
@@ -287,7 +303,7 @@ public:
 		buyProccess();
 	}
 
-	const Player& getCurrentPlayer(){
+	const Player& getCurrentPlayer() {
 		return currentPlayer;
 	}
 

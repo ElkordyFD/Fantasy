@@ -23,13 +23,13 @@ private:
 
 	void loadScheduleFromDatabase() {
 		schedule.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/schedule.txt";
+		string path = "../data/schedule.txt";
 		schedule = readFileLines(path);
 	}
 
 	void loadFootballersFromDatabase() {
 		footballers.clear();
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
+		string path = "../data/footballers.txt";
 		vector <string> lines = readFileLines(path);
 
 		for (const string& line : lines) {
@@ -194,7 +194,7 @@ public:
 	void updateDatabase() {
 
 		vector<string> myFootballers;
-		string path = "C:/Users/wizbe/OneDrive/Desktop/FantasyDatabase/footballers.txt";
+		string path = "../data/footballers.txt";
 
 		for (pair<string,vector<Footballer>> it : footballers) {
 			for (Footballer footballer : it.second)

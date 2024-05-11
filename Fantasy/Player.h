@@ -42,8 +42,13 @@ public:
 	// make isFound method in team class that's better :)
 
 	bool isFootballerInMyTeam(Footballer footballer) {
-		auto it = find(team.getFootballers().begin(), team.getFootballers().end(), footballer);
-		return it != team.getFootballers().end();
+		for (int i = 0; i < team.getFootballers().size(); i++)
+		{
+			if (footballer == team.getFootballers().at(i)) {
+				return true;
+			}
+		}
+		return false; 
 	}
 
 	//  with for loop will be better
@@ -60,7 +65,7 @@ public:
 		team.displayFootballers();
 	}
 
-	void buyFootballer(Footballer newFootballer) {
+	void buyFootballer( Footballer newFootballer) {
 
 		if (isFootballerInMyTeam(newFootballer)) {
 			cout << "\nThis Footballer Is Already In Your Team!" << endl;
@@ -87,9 +92,13 @@ public:
 
 		budget += footballer.getPrice();
 
-		auto it = find(team.getFootballers().begin(), team.getFootballers().end(), footballer);
-		if (it != team.getFootballers().end()) {
-			team.getFootballers().erase(it);
+		
+		for (int i = 0; i < team.getFootballers().size() ; i++)
+		{
+			if (team.getFootballers().at(i) == footballer)
+			{
+				team.deleteFootballer(footballer , i);
+			}
 		}
 
 		return;
