@@ -130,6 +130,7 @@
     <ClCompile Include="Fantasy_System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Admin.h" />
     <ClInclude Include="Fantasy.h" />
     <ClInclude Include="Footballer.h" />
     <ClInclude Include="Player.h" />
