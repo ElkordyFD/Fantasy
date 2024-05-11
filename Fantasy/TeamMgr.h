@@ -183,13 +183,6 @@ public:
 
 	}
 
-	// method for test TeamMgr :)
-	void showFoot(string teamName) {
-		for (Footballer footballer : footballers[teamName])
-			cout << footballer.getName() << " " << footballer.getPoints() << " " << footballer.getPrice() << "\n";
-		cout << "\n\n";
-	}
-
 	// still in progress
 	void updateDatabase() {
 

@@ -35,10 +35,12 @@ private:
 	int week;
 
 
-	void loadDatabase() {
+	void loadDatabase(bool fillPlayerTeam = false) {
 		playerMgr.loadDatabase();
-		playerMgr.loadPlayerTeam();
 		teamMgr.loadDatabase();
+
+		if (fillPlayerTeam)
+			playerMgr.loadPlayerTeam();
 	}
 
 public:
@@ -48,7 +50,8 @@ public:
 
 		while (true) {
 			// after signUp new data is Entered
-			/*loadDatabase(true);*/
+			loadDatabase(true);
+			
 
 			int choice = ShowReadMenu({ "Buy","Sell","Replace","Display my team","Start round" });
 
@@ -68,10 +71,13 @@ public:
 					cout << "not enough players to start round!\n\n";
 					continue;
 				}
-				else
+				else {
 					teamMgr.Match(week);
+					++week;
+				}
 			}
-			++week;
+
+			playerMgr.updateDatabase();
 
 			if (week == 5)
 				break;

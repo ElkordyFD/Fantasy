@@ -19,13 +19,19 @@ private:
 public:
 	Team () {}
 
-	Team(const vector<string>& information,const vector<Footballer>& myFootballers) {
+	Team(const string& line) {
+		vector<string> information = splitString(line);
 
 		id = toInt(information[0]);
 		name = information[1];
 		points = toInt(information[2]);
 
-		footballers = myFootballers;
+
+		for (int i{ 3 }; i < (int)information.size(); i++) {
+			Footballer footballer;
+			footballer.setName(information[i]);
+			footballers.push_back(footballer);
+		}
 
 	}
 
@@ -37,17 +43,34 @@ public:
 		return id;
 	}
 
-	vector<Footballer> getFootballers() {
+	// to check
+	void setName(const string& name) {
+		this->name = name;
+	}
+
+	void setFootballers(const vector<Footballer>& FootBallers) {
+		footballers = FootBallers;
+	}
+
+	vector<Footballer>& getFootballers() {
 		return footballers;
 	}
+
+
 
 	void addFootballer(const Footballer& newFootballer) {
 		footballers.push_back(newFootballer);
 	}
 
-	void deleteFootballer(const Footballer& myFootballer , int index) {
-		footballers.erase(footballers.begin() + index);
+	void deleteFootballer(Footballer& myFootballer) {
+		auto it = find(footballers.begin(), footballers.end(), myFootballer);
+		if (it != footballers.end())
+			footballers.erase(it);
 	}
+
+	/*void deleteFootballer(const Footballer& myFootballer , int index) {
+		footballers.erase(footballers.begin() + index);
+	}*/
 
 
 	bool isFound(Footballer footballer) {
@@ -67,6 +90,16 @@ public:
 
 	const int& getTeamCount() {
 		return footballers.size();
+	}
+
+	string toString() {
+		ostringstream oss;
+		oss << id << "," << name << "," << points;
+
+		for (Footballer footballer : footballers)
+			oss << "," << footballer.getName();
+
+		return oss.str();
 	}
 };
 

@@ -1,2 +1,2 @@
 1,warriors,0,HugoLoris,Rüdiger,Kanté,Walker,ThomasPartey,DeBruyne,vanDijk,Salah,HarryKane,Kambwala,Havertz
-2,dragons,0,Alisson,Konaté,Salah,Aké,Akanji,Haaland,ThiagoSilva,Rüdiger,Lukaku,Rashford,Casemiro
+2,dragons,0,Alisson,Konaté,Salah,Aké,Akanji,Haaland,ThiagoSilva,Rüdiger,Lukaku,Rashford,Casemiro,Xhaka

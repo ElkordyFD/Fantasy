@@ -88,21 +88,8 @@ private:
 		vector<string> lines = readFileLines(path);
 
 
-		vector<string>basicInformation;  vector<string>footballersNames;
-
-
-		for (string& line : lines) {
-			vector<string> info = splitString(line);
-
-			for (int i{ 0 }; i < 3; i++) {
-				basicInformation.push_back(info[i]);
-			}
-			for (int i{ 3 }; i < (int)info.size(); i++) {
-				footballersNames.push_back(info[i]);
-			}
-			vector<Footballer> myFootballers = toFootballer(footballersNames);
-
-			Team team(basicInformation,myFootballers);
+		for (const string& line : lines) {
+			Team team(line);
 			playersTeams[team.getId()] = team;
 		}
 	}
@@ -215,6 +202,19 @@ public:
 		cout << "\nName: \t" << footballerName << "\tPrice: " << currentFootballer.getPrice() << '\n';
 	}
 
+	
+	// playerTeams
+	void updateDatabase () {
+		vector<string>Teams;
+		string path = "../data/PlayerTeams.txt";
+
+		for (auto it : playersTeams)
+			Teams.push_back(it.second.toString());
+
+		WriteFileLines(path, Teams, false);
+	}
+
+
 	// to check footballer is exist or not
 	bool isFoundFootballer(const string& name) {
 		if (!footballers.count(name))
@@ -246,6 +246,7 @@ public:
 
 			if (answer == 'y' || answer == 'Y') {
 				Footballer footballer = footballers[footballerName];
+				addFootballer(footballer);
 				currentPlayer.buyFootballer(footballer);
 			}
 
@@ -270,16 +271,18 @@ public:
 
 				currentPlayer.displayMyTeam();
 
-				cout << "Enter Name Of Footballer You Want to Sell : ";
+				cout << "\nEnter Name Of Footballer You Want to Sell : ";
 
 				cin >> footballerName;
 
 				while (!isFoundFootballer(footballerName)) {
-					cout << "Incorrect name! Try again.\n";
+					cout << "\nIncorrect name! Try again.\n";
 					cin >> footballerName;
 				}
 
 				displayFootballerInfo(footballerName);
+
+				Footballer footballer = footballers[footballerName];
 
 				cout << "\nDo You Want To Confirm The Sale? (y/n) ";
 
@@ -288,7 +291,7 @@ public:
 
 				if (answer == 'y' || answer == 'Y') {
 
-					Footballer footballer = footballers[footballerName];
+					deleteFootballer(footballer);
 					currentPlayer.sellFootballer(footballer);
 				}
 
@@ -298,38 +301,53 @@ public:
 		} while (choice != 1);
 	}
 
+
+	// modify
 	void replace() {
 		sellProccess();
 		buyProccess();
 	}
+
+
 
 	const Player& getCurrentPlayer() {
 		return currentPlayer;
 	}
 
 
+
+	void addFootballer(Footballer footballer) {
+		int id = currentPlayer.getId();
+		Team& team = playersTeams[id];
+		team.addFootballer(footballer);
+	}
+
+	void deleteFootballer(Footballer footballer) {
+		int id = currentPlayer.getId();
+		Team& team = playersTeams[id];
+		team.deleteFootballer(footballer);
+	}
+
+
 	// load player team when login
+
 	void loadPlayerTeam() {
 		int id = currentPlayer.getId();
 		Team team = playersTeams[id];
+		modifyTeamPlayers(team);
 		currentPlayer.setTeam(team);
 	}
 
-
-	Team loadTeam(int id) {
-		return playersTeams[id];
-	}
-	
-
-	vector<Footballer> toFootballer(vector<string> footballersNames) {
-		vector<Footballer> myFootballers;
-
-		for (string name : footballersNames) {
-			Footballer footballer = footballers[name];
-			myFootballers.push_back(footballer);
+	void modifyTeamPlayers(Team& team) {
+		vector<Footballer> myFootballers = team.getFootballers();
+		for (int i{ 0 }; i < myFootballers.size(); i++) {
+			string footballerName = myFootballers[i].getName();
+			myFootballers[i] = footballers[footballerName];
 		}
-		return myFootballers;
+		team.setFootballers(myFootballers);
 	}
+
+
 };
 
 
