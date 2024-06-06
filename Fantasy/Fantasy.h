@@ -55,7 +55,8 @@ public:
 			if (week == 5)
 				break;
 		}
-		// update database
+		admin.updateDatabase();
+		cout << "\n\nthe league had been finished! \n\n";
 	}
 };
 

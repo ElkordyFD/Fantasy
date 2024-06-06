@@ -64,6 +64,10 @@ public:
 
 		team.displayFootballers();
 	}
+	// check
+	Team& getTeam() {
+		return team;
+	}
 
 	void buyFootballer( Footballer newFootballer) {
 

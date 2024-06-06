@@ -265,29 +265,29 @@ public:
 
 		}
 
-		modifyFootballerPrice();
 
-		updateFootballersDatabase();
+		modifyFootballerPrice();
+		modify();
 
 	}
 
-
-
-	// modify player points and prices
 	void updateFootballersDatabase() {
 
 		vector<string> myFootballers;
 		string path = "../data/footballers.txt";
 
-		for (pair<string, vector<Footballer>> it : mainFootballers) {
-			for (Footballer footballer : it.second)
-				myFootballers.push_back(footballer.toString());
-		}
+		for (auto it : footballers) 
+			myFootballers.push_back(it.second.toString());
 
 		WriteFileLines(path, myFootballers, false);
 	}
 
-
+	void modify() {
+		for (Footballer& footballer : currentPlayer.getTeam().getFootballers()) {
+			string name = footballer.getName();
+			footballer = footballers[name];
+		}
+	}
 
 
 	// PlayerMgr
@@ -382,7 +382,6 @@ public:
 
 		WriteFileLines(path, Teams, false);
 	}
-
 
 	// to check footballer is exist or not
 	bool isFoundFootballer(const string& name) {
@@ -512,7 +511,6 @@ public:
 
 
 
-
 	// load Database
 	void loadDatabase() {
 		loadScheduleFromDatabase();
@@ -520,6 +518,11 @@ public:
 		loadPlayersFromDatabase();
 		loadFootballersFromDatabase();
 		loadPlayersTeamsFromDatabase();
+	}
+
+	void updateDatabase() {
+		updatePlayerTeamsDatabase();
+		updateFootballersDatabase();
 	}
 };
 

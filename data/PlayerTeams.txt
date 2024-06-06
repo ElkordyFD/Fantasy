@@ -1,4 +1,3 @@
--842150451,,-842150451
+-842150451,,-842150451,Walker
 1,warriors,0,HugoLoris,Rüdiger,Kanté,Walker,ThomasPartey,DeBruyne,vanDijk,Salah,HarryKane,Kambwala,Havertz,Walker
 2,dragons,0,Alisson,Konaté,Salah,Aké,Akanji,Haaland,ThiagoSilva,Rüdiger,Lukaku,Rashford,Casemiro,Xhaka
--842150451,,-842150451,Walker
